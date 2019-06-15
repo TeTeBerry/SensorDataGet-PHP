@@ -1,5 +1,16 @@
 <?php
 
+/*
+  Rui Santos
+  Complete project details at https://RandomNerdTutorials.com/esp32-esp8266-mysql-database-php/
+  
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files.
+  
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+*/
+
 $servername = "127.0.0.1";
 
 // REPLACE with your Database name
