@@ -35,9 +35,9 @@ if ($result = $conn->query($sql)) {
     while ($row = $result->fetch_assoc()) {
         $row_id = $row["id"];
         $row_sensor = $row["sensor"];
-        $row_flowRate = $row["flowRate"];
-        $row_flowMilliLitres = $row["flowMilliLitres"]; 
-        $row_totalMilliLitres = $row["totalMilliLitres"]; 
+        $row_value1 = $row["flowRate"];
+        $row_value2 = $row["flowMilliLitres"]; 
+        $row_value3 = $row["totalMilliLitres"]; 
         $row_reading_time = $row["reading_time"];
         // Uncomment to set timezone to - 1 hour (you can change 1 to any number)
         //$row_reading_time = date("Y-m-d H:i:s", strtotime("$row_reading_time - 1 hours"));

@@ -19,9 +19,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $api_key = test_input($_POST["api_key"]);
     if($api_key == $api_key_value) {
         $sensor = test_input($_POST["sensor"]);
-        $flowRate = test_input($_POST["flowRate"]);
-        $flowMilliLitres = test_input($_POST["flowMilliLitres"]);
-        $totalMilliLitres = test_input($_POST["totalMilliLitres"]);
+        $value1 = test_input($_POST["flowRate"]);
+        $value2 = test_input($_POST["flowMilliLitres"]);
+        $value3 = test_input($_POST["totalMilliLitres"]);
         
         // Create connection
         $conn = new mysqli($servername, $username, $password, $dbname);
