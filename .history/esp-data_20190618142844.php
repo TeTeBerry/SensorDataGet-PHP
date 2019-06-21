@@ -10,7 +10,7 @@ $dbname = "iot";
 // REPLACE with Database user
 $username = "root";
 // REPLACE with Database user password
-$password = "root";
+$password = "Current-Root-Password";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);

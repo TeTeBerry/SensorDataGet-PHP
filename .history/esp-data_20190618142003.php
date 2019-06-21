@@ -3,7 +3,7 @@
 <?php
 
 
-$servername = "127.0.0.1";
+$servername = "127.0.0.1:3306";
 
 // REPLACE with your Database name
 $dbname = "iot";

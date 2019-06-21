@@ -5,9 +5,11 @@
 
 <script type="text/javascript">
   const xhr = new XMLHttpRequest();
-  const url = "http://127.0.0.1:8088?api_key=chentete&sensor=ESP8266&flowRate=60.12&flowMilliLitres=20.99&totalMilliLitres=105.14";
+  const url = "http://127.0.0.1:8088";
 
-  xhr.open("GET", url);
+  xhr.open("POST", url);
   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  xhr.send();
+  xhr.send(
+    "api_key=chentete&sensor=ESP8266&flowRate=33.23&flowMilliLitres=16.99&totalMilliLitres=105.14"
+  );
 </script>
