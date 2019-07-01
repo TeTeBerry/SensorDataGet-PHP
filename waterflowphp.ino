@@ -1,21 +1,22 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
 #include <WiFiClient.h>
+#include <ESP8266WebServer.h>
+
 
 
 
 // Set these to run example.
-#define Server_Name "server Address"
-#define WIFI_SSID "Hi bich"
-#define WIFI_PASSWORD "19941010Lzy!"
+const char *host = "172.20.10.2";
+const char *ssid = "Hi bich";
+const char *password = "19941010Lzy!";
 
 byte statusLed    = 13;
 byte sensorInterrupt = 0;  // 0 = digital pin 2
 byte sensorPin       = D3;
 float calibrationFactor = 4.5;
 volatile byte pulseCount;  
-String apiKeyValue = "chentete";
-String sensorName = "ESP8266";
+String sensorName = "Sensor-1";
 float flowRate;
 unsigned int flowMilliLitres;
 unsigned long totalMilliLitres;
@@ -36,7 +37,7 @@ void setup() {
   attachInterrupt(sensorInterrupt, pulseCounter, FALLING);
 
   // connect to wifi.
-  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+  WiFi.begin(ssid, password);
   Serial.print("connecting");
   while (WiFi.status() != WL_CONNECTED) {
     Serial.print("!!");
@@ -82,19 +83,33 @@ void loop() {
   if(WiFi.status()==WL_CONNECTED){
     HTTPClient http;
 
-    http.begin(Server_Name);
+
+
+//    String url="?sensor="+sensorName+"&Flow rate="+flowRate+"&Current Liquid Flowing="+flowMilliLitres+"&Output Liquid Quantity="+totalMilliLitres;
+//    Serial.print("url:");
+//    Serial.println(url);
+     String Link = "http://172.20.10.2:8088/post-esp-data.php/?sensorName="+sensorName+"&flowRate="+flowRate+"&flowMilliLitres="+flowMilliLitres+"&totalMilliLitres="+totalMilliLitres;
+     http.begin(Link);
+
+      http.addHeader("Content-Type", "application/x-www-form-urlencoded");
+
+      
+
 
      // Specify content-type header
-    http.addHeader("Content-Type", "application/x-www-form-urlencoded");
+      
+  
 
-    String httpRequestData="api_Key"+apiKeyValue+"&sensor="+sensorName+"&Flow rate="+flowRate+"&Current Liquid Flowing="+flowMilliLitres+"&Output Liquid Quantity="+totalMilliLitres+"";
-    Serial.print("httpRequestData:");
-    Serial.println(httpRequestData);
+   
+  
 
-    int httpResponseCode = http.GET(httpRequestData);
+    
+    int httpResponseCode = http.GET();
+    String payload = http.getString();
     if (httpResponseCode>0) {
       Serial.print("HTTP Response code: ");
       Serial.println(httpResponseCode);
+      Serial.println(payload);
     }
     else {
       Serial.print("Error code: ");

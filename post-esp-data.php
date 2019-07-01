@@ -1,8 +1,3 @@
-
-
-
-
-
 <?php
 
 
@@ -28,8 +23,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $totalMilliLitres = test_input($_GET["totalMilliLitres"]);
 
         $meter= array("sensorName"=>$_GET["sensorName"], "flowRate"=>$_GET["flowRate"],"flowMilliLitres"=>$_GET["flowMilliLitres"], "totalMilliLitres"=>$_GET["totalMilliLitres"]);
-
-
 
  
         // Create connection
@@ -69,18 +62,15 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $conn->close();
 
 }
-    }else if(($_SERVER["REQUEST_METHOD"] == "GET") ){
-        $client = test_input($_GET["client"]);
-    if($client == $client_value) {
-
-
-        echo "data_value: " .$data_value;
-
-    }
-
-
     
 
+} else if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    $client = $_GET["client"];
+    if($client == $client_value) {
+
+        echo "string";
+
+    }
 }
 
 else {
