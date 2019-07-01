@@ -1,13 +1,20 @@
 <title>AJAX xhr</title>
 <body>
-  <h2 id="title">POST XMLHttpRequest</h2>
-</body>
 
-<script type="text/javascript">
-  const xhr = new XMLHttpRequest();
-  const url = "http://127.0.0.1:8088?api_key=chentete&sensor=ESP8266&flowRate=60.12&flowMilliLitres=20.99&totalMilliLitres=105.14";
+<div id="demo">
+<h1>The XMLHttpRequest Object</h1>
+<p id="demo"></p>
+</div>
 
-  xhr.open("GET", url);
-  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  xhr.send();
+ <script>
+ var xmlhttp = new XMLHttpRequest();
+xmlhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+    var myObj = JSON.parse(this.responseText);
+    document.getElementById("demo").innerHTML = myObj[2];
+  }
+};
+xmlhttp.open("GET", "post-esp.data.php", true);
+xmlhttp.send();
 </script>
+

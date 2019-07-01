@@ -19,12 +19,13 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
 
-$sql = "SELECT id, sensor,flowRate, flowMilliLitres, totalMilliLitres, reading_time FROM SensorData";
+$sql = "SELECT id, sensorName,flowRate, flowMilliLitres, totalMilliLitres, reading_time FROM SensorData";
+
 
 echo '<table cellspacing="5" cellpadding="5">
       <tr> 
         <td>ID</td> 
-        <td>Sensor</td> 
+        <td>sensorName</td> 
         <td>flowRate</td> 
         <td>flowMilliLitres</td>
         <td>totalMilliLitres</td> 
@@ -34,7 +35,7 @@ echo '<table cellspacing="5" cellpadding="5">
 if ($result = $conn->query($sql)) {
     while ($row = $result->fetch_assoc()) {
         $row_id = $row["id"];
-        $row_sensor = $row["sensor"];
+        $row_sensorName = $row["sensorName"];
         $row_flowRate = $row["flowRate"];
         $row_flowMilliLitres = $row["flowMilliLitres"]; 
         $row_totalMilliLitres = $row["totalMilliLitres"]; 
@@ -47,7 +48,7 @@ if ($result = $conn->query($sql)) {
       
         echo '<tr> 
                 <td>' . $row_id . '</td> 
-                <td>' . $row_sensor . '</td> 
+                <td>' . $row_sensorName . '</td> 
                 <td>' . $row_flowRate . '</td> 
                 <td>' . $row_flowMilliLitres . '</td>
                 <td>' . $row_totalMilliLitres . '</td> 
