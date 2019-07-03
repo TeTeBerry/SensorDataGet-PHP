@@ -1,54 +1,55 @@
-<script type="text/javascript">
-
-    var url = window.location.search.substr(1);
-    console.log(url);
-   function QueryStringToJSON(str) {
-    var pairs = str.split('&');
-    var result = {};
-    pairs.forEach(function (pair) {
-        pair = pair.split('=');
-        var name = pair[0]
-        var value = pair[1]
-        if (name.length)
-            if (result[name] !== undefined) {
-                if (!result[name].push) {
-                    result[name] = [result[name]];
-                }
-                result[name].push(value || '');
-            } else {
-                result[name] = value || '';
-            }
-    });
-    return (result);
-}
-
-var obj = QueryStringToJSON(url);
-
-console.log(obj)
-
-    var xhr = new XMLHttpRequest();
-
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4) {
-            if (xhr.status == 200) {
-                var response = xhr.responseText;
-                console.log(response)
-            }
-        }
-    };
-
-    xhr.open('POST','http://127.0.0.1:8088/react.php', true);
-    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-    xhr.send(obj);
-    console.log(obj);
-
-
-</script>
-
 <?php
-ob_start();
-include('post-esp.data.php');
-ob_clean();
+
+
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json; charset=UTF-8");
+// (1) INIT
+set_time_limit(60); // Set the appropriate time limit
+ignore_user_abort(false); // Stop when polling breaks
+// ! CHANGE THESE TO YOUR OWN !
+define('DB_HOST', '127.0.0.1');
+define('DB_NAME', 'iot');
+define('DB_USER', 'root');
+define('DB_PASSWORD', 'root');
  
-echo $meter;
+// (2) DATABASE
+class DB {
+  protected $pdo = null;
+  protected $stmt = null;
+  function __construct() {
+    try {
+      $this->pdo = new PDO(
+        "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, 
+        DB_USER, DB_PASSWORD, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, PDO::ATTR_EMULATE_PREPARES => false]
+      );
+      return true;
+    } catch (Exception $ex) {
+      print_r($ex);
+      die();
+    }
+  }
+  function __destruct() {
+    if ($this->stmt !== null) { $this->stmt = null; }
+    if ($this->pdo !== null) { $this->pdo = null; }
+  }
+  function getData() {
+    $this->stmt = $this->pdo->prepare("SELECT * FROM `realTime` ORDER BY `reading_time` DESC LIMIT 1");
+    $this->stmt->execute();
+    $result = $this->stmt->fetchAll();
+    return count($result)==0 ? ["sensorName"=>0, "flowRate"=>0, "flowMilliLitres"=>0, "totalMilliLitres"=>0,"reading_time"=>0] : ["reading_time"=>strtotime($result[0]['reading_time']), "sensorName"=>$result[0]['sensorName'], "flowRate"=>$result[0]['flowRate'],"flowMilliLitres"=>$result[0]['flowMilliLitres'],"totalMilliLitres"=>$result[0]['totalMilliLitres']];
+  }
+}
+$pdoDB = new DB();
+
+// (3) LOOP - CHECK FOR UPDATES
+// Will keep looping until a score update or AJAX timeout
+while (true) {
+  $data = $pdoDB->getData();
+  if ($data['reading_time']>$_GET['last']) {
+    echo json_encode($data);
+    break;
+  }
+  sleep(1);
+}
 ?>
