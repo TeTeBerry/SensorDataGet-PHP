@@ -6,7 +6,7 @@ header("Content-Type: application/json; charset=UTF-8");
 // (1) INIT
 set_time_limit(60); // Set the appropriate time limit
 ignore_user_abort(false); // Stop when polling breaks
-// ! CHANGE THESE TO YOUR OWN !
+
 define('DB_HOST', '127.0.0.1');
 define('DB_NAME', 'iot');
 define('DB_USER', 'root');
