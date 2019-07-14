@@ -5,7 +5,7 @@ $request = $_SERVER['REQUEST_URI'];
 
 switch ($request) {
     case '/' :
-        require __FILE__ . '/index.php';
+        require __FILE__ . '/get-esp-data.php';
         break;
     case '/realtime' :
         require __FILE__ . '/react.php';
