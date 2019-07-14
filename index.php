@@ -13,8 +13,4 @@ switch ($request) {
     case '/react' :
         require __DIR__ . '/views/react.php';
         break;
-    default:
-        require __DIR__ . '/views/404.php';
-        break;
-
 }
