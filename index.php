@@ -2,13 +2,15 @@
 
 require('vendor/autoload.php');
 header("Access-Control-Allow-Origin: *");
-$servername = "127.0.0.1";
+$servername = "us-cdbr-iron-east-02.cleardb.net";
+
 // REPLACE with your Database name
-$dbname = "iot";
+$dbname = "heroku_0abf4b67ee6747a";
 // REPLACE with Database user
-$username = "root";
+$username = "b5b7819d9b19a5";
 // REPLACE with Database user password
-$password = "root";
+$password = "47532b88";
+
 if (!empty($_GET["sensorName"])) {
         // Calls from sensor to save data
         $sensorName = $_GET["sensorName"];

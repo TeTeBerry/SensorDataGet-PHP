@@ -7,10 +7,10 @@ header("Content-Type: application/json; charset=UTF-8");
 set_time_limit(60); // Set the appropriate time limit
 ignore_user_abort(false); // Stop when polling breaks
 
-define('DB_HOST', '127.0.0.1');
-define('DB_NAME', 'iot');
-define('DB_USER', 'root');
-define('DB_PASSWORD', 'root');
+define('DB_HOST', 'us-cdbr-iron-east-02.cleardb.net');
+define('DB_NAME', 'heroku_0abf4b67ee6747a');
+define('DB_USER', 'b5b7819d9b19a5');
+define('DB_PASSWORD', '47532b88');
  
 // (2) DATABASE
 class DB {
