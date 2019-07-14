@@ -1,6 +1,6 @@
 <?php
 
-
+require('vendor/autoload.php');
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 // (1) INIT
