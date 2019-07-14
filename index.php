@@ -5,12 +5,16 @@ $request = $_SERVER['REQUEST_URI'];
 
 switch ($request) {
     case '/' :
-        require __FILE__ . '/get-esp-data.php';
+        require __DIR__ . '/views/get-esp-data.php';
         break;
-    case '/realtime' :
-        require __FILE__ . '/react.php';
+    case '' :
+        require __DIR__ . '/views/get-esp-data.php';
+        break;
+    case '/react' :
+        require __DIR__ . '/views/react.php';
         break;
     default:
-        require __FILE__ . '/404.php';
+        require __DIR__ . '/views/404.php';
         break;
+
 }
