@@ -69,9 +69,9 @@ if (!empty($_GET["sensorName"])) {
 }
 
 
-function test_input($caller) {
-    $caller = trim($caller);
-    $caller = stripslashes($caller);
-    $caller = htmlspecialchars($caller);
-    return $caller;
-}
+// function test_input($caller) {
+//     $caller = trim($caller);
+//     $caller = stripslashes($caller);
+//     $caller = htmlspecialchars($caller);
+//     return $caller;
+// }
